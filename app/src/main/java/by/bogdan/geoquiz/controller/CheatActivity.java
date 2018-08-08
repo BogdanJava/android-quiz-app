@@ -7,6 +7,8 @@ import android.util.AndroidRuntimeException;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.Set;
+
 import by.bogdan.geoquiz.R;
 import by.bogdan.geoquiz.model.Question;
 
@@ -14,9 +16,14 @@ import static by.bogdan.geoquiz.utils.ActivityUtils.EXTRA_ANSWER_SHOWN;
 import static by.bogdan.geoquiz.utils.ActivityUtils.EXTRA_QUESTION;
 
 public class CheatActivity extends AppCompatActivity {
+
+    public static final String ANSWER_SHOWN_STATE =
+            "by.bogdan.geoquiz.answer_shown_state";
+
     private Question mQuestion;
     private TextView mAnswerTextView;
     private Button mShowAnswerButton;
+    private boolean isAnswerShown = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,13 +43,25 @@ public class CheatActivity extends AppCompatActivity {
             } else {
                 mAnswerTextView.setText(R.string.false_button);
             }
-            setAnswerShownResult(true);
+            isAnswerShown = true;
+            setAnswerShownResult();
         });
+
+        if (savedInstanceState != null) {
+            this.isAnswerShown = savedInstanceState.getBoolean(ANSWER_SHOWN_STATE, false);
+        }
+        setAnswerShownResult();
     }
 
-    private void setAnswerShownResult(boolean isAnswerShown) {
+    private void setAnswerShownResult() {
         Intent intent = new Intent();
-        intent.putExtra(EXTRA_ANSWER_SHOWN, isAnswerShown);
+        intent.putExtra(EXTRA_ANSWER_SHOWN, this.isAnswerShown);
         setResult(RESULT_OK, intent);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean(ANSWER_SHOWN_STATE, isAnswerShown);
     }
 }
