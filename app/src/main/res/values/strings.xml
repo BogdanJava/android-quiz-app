@@ -29,4 +29,5 @@
     <string name="next_question_button_cd">Go to the next question</string>
     <string name="prev_question_button_cd">Go back to the previous question</string>
     <string name="title_activity_cheat">Cheat Activity</string>
+    <string name="api_level">API level %1$d</string>
 </resources>
