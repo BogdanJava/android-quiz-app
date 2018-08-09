@@ -7,8 +7,6 @@ import android.util.AndroidRuntimeException;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.util.Set;
-
 import by.bogdan.geoquiz.R;
 import by.bogdan.geoquiz.model.Question;
 
